@@ -172,7 +172,7 @@ footer a{color:var(--bone)}
       <a class="btn" href="#download">Download free</a>
       <a class="btn ghost" href="#clips">Watch clips</a>
     </div>
-    <p class="meta">Windows 10 / 11 · <span data-ver>v1.0.22</span> · about 0.7 GB · keyboard &amp; mouse or controller</p>
+    <p class="meta">Windows 10 / 11 · <span data-ver>v1.0.22</span> · about 0.75 GB · keyboard &amp; mouse or controller</p>
   </div>
 </div>
 
@@ -270,12 +270,12 @@ footer a{color:var(--bone)}
   <div class="wrap dl-grid">
     <div>
       <h2>Download.<br><span>It's free.</span></h2>
-      <p class="sub">The whole game, no account needed. Install it, press Ready, jump.</p>
+      <p class="sub">Grab the launcher. It installs the game, keeps it up to date and starts it. No account needed: you can play offline as a guest.</p>
       <div class="opts">
-        <a class="btn" id="dlSetup" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest/download/UNBURIED-Setup.exe">Download installer</a>
-        <a class="btn ghost" id="dlZip" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest">Zip, no installer</a>
+        <a class="btn" id="dlLauncher" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest/download/UNBURIED-Launcher.exe">Download launcher</a>
+        <a class="btn ghost" id="dlZip" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest">Zip, no launcher</a>
       </div>
-      <p class="fine">Windows 10 / 11, 64-bit · <span id="dlSize">about 0.7 GB</span> · <a href="https://github.com/montypyphon-lang/UNBURIED-releases/releases">All versions</a></p>
+      <p class="fine">Windows 10 / 11, 64-bit · launcher under 1 MB, game <span id="dlSize">about 0.75 GB</span> · <a href="https://github.com/montypyphon-lang/UNBURIED-releases/releases">All versions</a></p>
     </div>
     <div>
       <div class="card">
@@ -285,10 +285,10 @@ footer a{color:var(--bone)}
       <div class="card">
         <h3>Installing</h3>
         <ol>
-          <li>Run <b>UNBURIED-Setup.exe</b>.</li>
-          <li>If Windows shows "Windows protected your PC", choose <b>More info → Run anyway</b>. The installer isn't code-signed yet.</li>
+          <li>Run <b>UNBURIED-Launcher.exe</b> and press <b>INSTALL</b>. It downloads the game for you.</li>
+          <li>If Windows shows "Windows protected your PC", choose <b>More info → Run anyway</b>. The launcher isn't code-signed yet.</li>
           <li>If Windows blocks it outright (Smart App Control), use the <b>zip</b>: unzip it anywhere and run the game from the folder.</li>
-          <li>After that the game updates itself from the lobby.</li>
+          <li>Press <b>PLAY</b>. The launcher fetches updates when there are any.</li>
         </ol>
       </div>
     </div>
@@ -349,13 +349,13 @@ fetch('https://api.github.com/repos/montypyphon-lang/UNBURIED-releases/releases/
     if (rel.published_at) document.getElementById('verDate').textContent =
       ' · ' + new Date(rel.published_at).toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric'});
     if (rel.body) document.getElementById('notes').textContent = rel.body;
-    const setup = rel.assets.find(a => /setup\.exe$/i.test(a.name));
+    const launcher = rel.assets.find(a => /launcher\.exe$/i.test(a.name));
     const zip = rel.assets.find(a => /\.zip$/i.test(a.name));
-    if (setup) {
-      document.getElementById('dlSetup').href = setup.browser_download_url;
-      document.getElementById('dlSize').textContent = (setup.size / 1073741824).toFixed(2) + ' GB';
+    if (launcher) document.getElementById('dlLauncher').href = launcher.browser_download_url;
+    if (zip) {
+      document.getElementById('dlZip').href = zip.browser_download_url;
+      document.getElementById('dlSize').textContent = (zip.size / 1073741824).toFixed(2) + ' GB';
     }
-    if (zip) document.getElementById('dlZip').href = zip.browser_download_url;
   })
   .catch(() => {});
 </script>
