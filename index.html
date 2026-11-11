@@ -24,6 +24,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--ink);color:var(--bone);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
 img,video{display:block;max-width:100%}
+img{height:auto}
 a{color:inherit}
 h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.02em;line-height:1;margin:0;text-wrap:balance}
 p{margin:0}
@@ -35,7 +36,7 @@ p{margin:0}
   background:linear-gradient(#0c0d0bee,#0c0d0b00);transition:background .2s}
 .nav.solid{background:#0c0d0bf2;border-bottom:1px solid var(--line)}
 .logo{font:400 30px/1 var(--display);letter-spacing:.03em;text-decoration:none;margin-right:auto}
-.logo b{font-weight:400;color:var(--blood)}
+.logo img{height:52px;width:auto;margin:-6px 0 -10px -8px}
 .nav a.link{font:400 19px/1 var(--display);letter-spacing:.08em;text-decoration:none;color:var(--ash)}
 .nav a.link:hover{color:var(--bone)}
 @media (max-width:640px){.nav a.link{display:none}}
@@ -57,9 +58,9 @@ p{margin:0}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(180deg,#0c0d0b66 0,#0c0d0b22 30%,#0c0d0be0 58%,#0c0d0bf2 80%,var(--ink) 100%)}
 .hero-in{padding:120px 0 72px}
-.eyebrow{font:400 20px/1 var(--display);letter-spacing:.2em;color:var(--hazard)}
-.hero h1{font-size:clamp(88px,17vw,220px);line-height:.84;margin:10px 0 14px -4px;text-shadow:0 4px 30px #000a}
-.hero h1 b{font-weight:400;color:var(--blood)}
+.eyebrow{font:400 20px/1.1 var(--display);letter-spacing:.2em;color:var(--hazard);margin-bottom:10px}
+.hero h1{margin:4px 0 6px}
+.hero h1 img{width:min(760px,100%);margin-left:-3%;filter:drop-shadow(0 6px 24px #000c)}
 .hero p.lede{font-size:clamp(18px,2.2vw,23px);max-width:34em;color:#f3eede;text-shadow:0 1px 8px #000}
 .hero .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:28px}
 .hero .meta{margin-top:16px;font-size:14px;color:var(--ash);letter-spacing:.02em}
@@ -153,7 +154,7 @@ footer a{color:var(--bone)}
 <body>
 
 <header class="nav" id="nav">
-  <a class="logo" href="#top" aria-label="UNBURIED home">UN<b>BURIED</b></a>
+  <a class="logo" href="#top" aria-label="UNBURIED home"><img src="media/logo.png" alt="UNBURIED" width="1400" height="520"></a>
   <a class="link" href="#clips">Clips</a>
   <a class="link" href="#features">Features</a>
   <a class="link" href="#match">How it plays</a>
@@ -164,8 +165,8 @@ footer a{color:var(--bone)}
 <div class="hero">
   <video id="heroVideo" src="media/drop.mp4" poster="media/drop.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
   <div class="wrap hero-in">
+    <h1><img src="media/logo.png" alt="UNBURIED. Drop. Survive. Be the last." width="1400" height="520"></h1>
     <p class="eyebrow">Zombie battle royale · Free on PC</p>
-    <h1>UN<b>BURIED</b></h1>
     <p class="lede">Jump from the plane, loot the ruins, and be the last human standing. Get bitten and you claw back out of the ground as one of them.</p>
     <div class="cta">
       <a class="btn" href="#download">Download free</a>
