@@ -25,7 +25,7 @@ p{margin:0}
 :focus-visible{outline:2px solid var(--hazard);outline-offset:3px}
 
 .nav{display:flex;align-items:center;gap:24px;padding:14px max(20px,calc((100% - 1160px)/2));border-bottom:1px solid var(--line)}
-.nav .logo{margin-right:auto}
+.nav .alpha{margin-right:auto;font:400 17px/1 var(--display);letter-spacing:.14em;color:#191500;background:var(--hazard);padding:5px 9px 3px;transform:skewX(-8deg)}
 .nav .logo img{display:block;height:52px;width:auto;margin:-6px 0 -10px -8px}
 .nav a.link{font:400 19px/1 var(--display);letter-spacing:.08em;text-decoration:none;color:var(--ash)}
 .nav a.link:hover{color:var(--bone)}
@@ -77,13 +77,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ash);fon
 
 <header class="nav">
   <a class="logo" href="./" aria-label="UNBURIED home"><img src="media/logo.png" alt="UNBURIED" width="1400" height="520"></a>
+  <span class="alpha">Alpha</span>
   <a class="link" href="./#clips">Clips</a>
   <a class="link" href="./#download">Download</a>
 </header>
 
 <main class="wrap" id="main">
   <h1>Tell me what <span>you think</span></h1>
-  <p class="lede">Found a bug, got an idea, or something just felt off? Every message goes straight to the developer and gets read.</p>
+  <p class="lede">UNBURIED is in alpha, so your feedback shapes it. Found a bug, got an idea, or something just felt off? Every message goes straight to the developer and gets read.</p>
 
   <form id="form" novalidate>
     <fieldset>

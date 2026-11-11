@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UNBURIED — free zombie battle royale for PC</title>
-<meta name="description" content="UNBURIED is a free zombie battle royale for Windows. Drop in, loot up, be the last human standing. Die and you rise as a zombie.">
+<title>UNBURIED (Alpha) — free zombie battle royale for PC</title>
+<meta name="description" content="UNBURIED is a free zombie battle royale for Windows, now in alpha. Drop in, loot up, be the last human standing. Die and you rise as a zombie.">
 <meta property="og:title" content="UNBURIED — free zombie battle royale">
 <meta property="og:description" content="Drop in, loot up, be the last human standing. Die and you rise as a zombie. Free for Windows.">
 <meta property="og:image" content="media/fight.jpg">
@@ -36,6 +36,9 @@ p{margin:0}
   background:linear-gradient(#0c0d0bee,#0c0d0b00);transition:background .2s}
 .nav.solid{background:#0c0d0bf2;border-bottom:1px solid var(--line)}
 .logo{font:400 30px/1 var(--display);letter-spacing:.03em;text-decoration:none;margin-right:auto}
+.logo{margin-right:0}
+.nav .alpha{margin-right:auto}
+.alpha{font:400 17px/1 var(--display);letter-spacing:.14em;color:#191500;background:var(--hazard);padding:5px 9px 3px;transform:skewX(-8deg);text-decoration:none;white-space:nowrap}
 .logo img{height:52px;width:auto;margin:-6px 0 -10px -8px}
 .nav a.link{font:400 19px/1 var(--display);letter-spacing:.08em;text-decoration:none;color:var(--ash)}
 .nav a.link:hover{color:var(--bone)}
@@ -43,7 +46,7 @@ p{margin:0}
 
 /* buttons: the game's brush-stroke buttons */
 .btn{display:inline-flex;align-items:center;gap:10px;font:400 24px/1 var(--display);letter-spacing:.06em;text-decoration:none;
-  padding:14px 30px 12px;color:#fff;background:var(--blood);border:0;cursor:pointer;
+  padding:14px 30px 12px;color:#fff;background:var(--blood);border:0;cursor:pointer;white-space:nowrap;
   clip-path:polygon(2% 8%,98% 0,100% 88%,96% 100%,3% 96%,0 50%);transition:transform .12s,background .12s}
 .btn:hover{background:#ea3327;transform:translateY(-2px) rotate(-.4deg)}
 .btn.small{font-size:19px;padding:10px 20px 8px}
@@ -131,6 +134,8 @@ ol.flow{margin:0;padding:0}
 .dl h2 span{color:var(--hazard)}
 .dl .sub{color:var(--ash);margin:12px 0 26px;max-width:32em}
 .dl .opts{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.alpha-note{margin-top:22px;padding:14px 16px;border-left:4px solid var(--hazard);background:#f2c2301a;max-width:34em;font-size:16px}
+.alpha-note b{color:var(--hazard);font-weight:600}
 .dl .fine{margin-top:14px;font-size:14px;color:var(--ash)}
 .card{background:var(--panel);border:1px solid var(--line);padding:22px 24px}
 .card + .card{margin-top:14px}
@@ -155,6 +160,7 @@ footer a{color:var(--bone)}
 
 <header class="nav" id="nav">
   <a class="logo" href="#top" aria-label="UNBURIED home"><img src="media/logo.png" alt="UNBURIED" width="1400" height="520"></a>
+  <a class="alpha" href="#alpha" title="This is an early alpha build">Alpha</a>
   <a class="link" href="#clips">Clips</a>
   <a class="link" href="#features">Features</a>
   <a class="link" href="#match">How it plays</a>
@@ -167,13 +173,13 @@ footer a{color:var(--bone)}
   <video id="heroVideo" src="media/drop.mp4" poster="media/drop.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
   <div class="wrap hero-in">
     <h1><img src="media/logo.png" alt="UNBURIED. Drop. Survive. Be the last." width="1400" height="520"></h1>
-    <p class="eyebrow">Zombie battle royale · Free on PC</p>
+    <p class="eyebrow"><span class="alpha" style="display:inline-block;margin-right:12px;letter-spacing:.14em">Alpha</span>Zombie battle royale · Free on PC</p>
     <p class="lede">Jump from the plane, loot the ruins, and be the last human standing. Get bitten and you claw back out of the ground as one of them.</p>
     <div class="cta">
       <a class="btn" href="#download">Download free</a>
       <a class="btn ghost" href="#clips">Watch clips</a>
     </div>
-    <p class="meta">Windows 10 / 11 · <span data-ver>v1.0.22</span> · about 0.75 GB · keyboard &amp; mouse or controller</p>
+    <p class="meta">Early alpha build: expect bugs and missing features · Windows 10 / 11 · <span data-ver>v1.0.22</span> · about 0.75 GB · keyboard &amp; mouse or controller</p>
   </div>
 </div>
 
@@ -225,7 +231,7 @@ footer a{color:var(--bone)}
   <div class="wrap">
     <div class="head">
       <h2>What's <span>in the game</span></h2>
-      <p>Everything here is in the build you download today.</p>
+      <p>Everything here is in the alpha you download today. It is unfinished, and more is on the way.</p>
     </div>
     <div class="feats">
       <div class="feat"><h3>Last human standing</h3><p>Up to 40 survivors per match. Bring friends or let bots fill the plane. The zone closes in five circles until one human, or one squad, is left.</p></div>
@@ -270,17 +276,18 @@ footer a{color:var(--bone)}
 <section id="download" class="dl">
   <div class="wrap dl-grid">
     <div>
-      <h2>Download.<br><span>It's free.</span></h2>
+      <h2>Download the alpha.<br><span>It's free.</span></h2>
       <p class="sub">Grab the launcher. It installs the game, keeps it up to date and starts it. No account needed: you can play offline as a guest.</p>
       <div class="opts">
         <a class="btn" id="dlLauncher" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest/download/UNBURIED-Launcher.exe">Download launcher</a>
         <a class="btn ghost" id="dlZip" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest">Zip, no launcher</a>
       </div>
+      <p class="alpha-note" id="alpha"><b>This is an alpha.</b> The game is playable but unfinished: expect bugs, rough edges and things that change between updates. If something breaks, <a href="feedback.html">tell me</a>.</p>
       <p class="fine">Windows 10 / 11, 64-bit · launcher under 1 MB, game <span id="dlSize">about 0.75 GB</span> · <a href="https://github.com/montypyphon-lang/UNBURIED-releases/releases">All versions</a></p>
     </div>
     <div>
       <div class="card">
-        <span class="ver">Latest: <span data-ver>v1.0.22</span><span id="verDate"></span></span>
+        <span class="ver">Latest alpha: <span data-ver>v1.0.22</span><span id="verDate"></span></span>
         <p id="notes">New weapon switch animation, and the guns you carry now show on your back and in your holster.</p>
       </div>
       <div class="card">
