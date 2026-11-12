@@ -7,222 +7,90 @@
 <meta name="description" content="UNBURIED is a free zombie battle royale for Windows, now in alpha. Drop in, loot up, be the last human standing. Die and you rise as a zombie.">
 <meta property="og:title" content="UNBURIED — free zombie battle royale">
 <meta property="og:description" content="Drop in, loot up, be the last human standing. Die and you rise as a zombie. Free for Windows.">
-<meta property="og:image" content="media/fight.jpg">
+<meta property="og:image" content="media/shot-hud.jpg">
+<meta name="theme-color" content="#0e0d0b">
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#0c0d0b; --soil:#14160f; --panel:#1b1e16; --line:#2e3326;
-  --bone:#ece6d6; --ash:#a8a694; --blood:#d5281c; --blood-dark:#8f1810;
-  --hazard:#f2c230; --moss:#7c9a4b;
-  --display:"Bebas Neue","Arial Narrow",Impact,sans-serif;
-  --body:"Barlow",system-ui,"Segoe UI",sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--ink);color:var(--bone);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
-img,video{display:block;max-width:100%}
-img{height:auto}
-a{color:inherit}
-h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.02em;line-height:1;margin:0;text-wrap:balance}
-p{margin:0}
-.wrap{width:min(1160px,100% - 40px);margin-inline:auto}
-:focus-visible{outline:2px solid var(--hazard);outline-offset:3px}
-
-/* nav */
-.nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;gap:28px;padding:14px max(20px,calc((100% - 1160px)/2));
-  background:linear-gradient(#0c0d0bee,#0c0d0b00);transition:background .2s}
-.nav.solid{background:#0c0d0bf2;border-bottom:1px solid var(--line)}
-.logo{font:400 30px/1 var(--display);letter-spacing:.03em;text-decoration:none;margin-right:auto}
-.logo{margin-right:0}
-.nav .alpha{margin-right:auto}
-.alpha{font:400 17px/1 var(--display);letter-spacing:.14em;color:#191500;background:var(--hazard);padding:5px 9px 3px;transform:skewX(-8deg);text-decoration:none;white-space:nowrap}
-.logo img{height:52px;width:auto;margin:-6px 0 -10px -8px}
-.nav a.link{font:400 19px/1 var(--display);letter-spacing:.08em;text-decoration:none;color:var(--ash)}
-.nav a.link:hover{color:var(--bone)}
-@media (max-width:640px){.nav a.link{display:none}}
-
-/* buttons: the game's brush-stroke buttons */
-.btn{display:inline-flex;align-items:center;gap:10px;font:400 24px/1 var(--display);letter-spacing:.06em;text-decoration:none;
-  padding:14px 30px 12px;color:#fff;background:var(--blood);border:0;cursor:pointer;white-space:nowrap;
-  clip-path:polygon(2% 8%,98% 0,100% 88%,96% 100%,3% 96%,0 50%);transition:transform .12s,background .12s}
-.btn:hover{background:#ea3327;transform:translateY(-2px) rotate(-.4deg)}
-.btn.small{font-size:19px;padding:10px 20px 8px}
-.btn.yellow{background:var(--hazard);color:#191500}
-.btn.yellow:hover{background:#ffd445}
-.btn.ghost{background:#ffffff14;color:var(--bone)}
-.btn.ghost:hover{background:#ffffff26}
-
-/* hero */
-.hero{position:relative;min-height:100svh;display:grid;align-items:end;overflow:hidden;isolation:isolate}
-.hero video,.hero .still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,#0c0d0b66 0,#0c0d0b22 30%,#0c0d0be0 58%,#0c0d0bf2 80%,var(--ink) 100%)}
-.hero-in{padding:120px 0 72px}
-.eyebrow{font:400 20px/1.1 var(--display);letter-spacing:.2em;color:var(--hazard);margin-bottom:10px}
-.hero h1{margin:4px 0 6px}
-.hero h1 img{width:min(760px,100%);margin-left:-3%;filter:drop-shadow(0 6px 24px #000c)}
-.hero p.lede{font-size:clamp(18px,2.2vw,23px);max-width:34em;color:#f3eede;text-shadow:0 1px 8px #000}
-.hero .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:28px}
-.hero .meta{margin-top:16px;font-size:14px;color:var(--ash);letter-spacing:.02em}
-
-/* sections */
-section{padding:88px 0}
-.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 32px;margin-bottom:36px}
-.head h2{font-size:clamp(44px,6vw,72px)}
-.head h2 span{color:var(--blood)}
-.head p{max-width:30em;color:var(--ash)}
-
-/* clips */
-.clips{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-.clip{position:relative;grid-column:span 2;padding:0;border:1px solid var(--line);background:#000;color:inherit;cursor:pointer;overflow:hidden;aspect-ratio:16/9;text-align:left}
-.clip.big{grid-column:span 3}
-.clip video{width:100%;height:100%;object-fit:cover;transition:transform .4s,opacity .2s;opacity:.86}
-.clip:hover video,.clip:focus-visible video{transform:scale(1.03);opacity:1}
-.clip .cap{position:absolute;inset:auto 0 0 0;padding:40px 16px 12px;background:linear-gradient(#0000,#000d);pointer-events:none}
-.clip .cap h3{font-size:28px}
-.clip .cap p{font-size:14px;color:#d6d2c2;line-height:1.35}
-.clip .play{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:#000a;border:1px solid #fff5;display:grid;place-items:center;pointer-events:none}
-.clip .play::before{content:"";border-left:12px solid #fff;border-block:7px solid transparent;margin-left:3px}
-@media (max-width:860px){.clip,.clip.big{grid-column:span 3}}
-@media (max-width:560px){.clip,.clip.big{grid-column:span 6}}
-
-/* lightbox */
-dialog{border:0;padding:0;background:#000;width:min(1280px,96vw);max-height:92vh;color:var(--bone)}
-dialog::backdrop{background:#000d}
-dialog video{width:100%;aspect-ratio:16/9;max-height:82vh;background:#000}
-dialog .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 14px;background:var(--panel)}
-dialog .bar strong{font:400 24px/1 var(--display);letter-spacing:.05em}
-dialog .bar button{background:none;border:1px solid var(--line);color:var(--bone);font:400 18px/1 var(--display);letter-spacing:.08em;padding:8px 14px 6px;cursor:pointer}
-dialog .bar button:hover{border-color:var(--bone)}
-
-/* features */
-.band{background:var(--soil);border-block:1px solid var(--line)}
-.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.feat{background:var(--soil);padding:26px 24px 28px}
-.feat h3{font-size:30px;margin-bottom:8px}
-.feat h3::before{content:"";display:block;width:34px;height:5px;background:var(--blood);margin-bottom:14px;transform:skewX(-20deg)}
-.feat:nth-child(3n+2) h3::before{background:var(--hazard)}
-.feat:nth-child(3n) h3::before{background:var(--moss)}
-.feat p{color:var(--ash);font-size:16px}
-@media (max-width:860px){.feats{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:560px){.feats{grid-template-columns:1fr}}
-
-/* match flow */
-.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:step}
-.flow li{list-style:none;counter-increment:step;border-top:2px solid var(--line);padding-top:16px}
-.flow li::before{content:"0" counter(step);font:400 54px/1 var(--display);color:var(--blood)}
-.flow h3{font-size:28px;margin:6px 0 6px}
-.flow p{color:var(--ash);font-size:16px}
-ol.flow{margin:0;padding:0}
-@media (max-width:860px){.flow{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:480px){.flow{grid-template-columns:1fr}}
-
-/* shots */
-.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.shots figure{margin:0;border:1px solid var(--line);background:#000}
-.shots figcaption{padding:10px 14px;font-size:14px;color:var(--ash);background:var(--panel)}
-@media (max-width:640px){.shots{grid-template-columns:1fr}}
-
-/* download */
-.dl{background:
-  radial-gradient(900px 400px at 80% 0,#d5281c22,#0000 70%),var(--soil);border-block:1px solid var(--line)}
-.dl-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
-.dl h2{font-size:clamp(56px,8vw,104px)}
-.dl h2 span{color:var(--hazard)}
-.dl .sub{color:var(--ash);margin:12px 0 26px;max-width:32em}
-.dl .opts{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.alpha-note{margin-top:22px;padding:14px 16px;border-left:4px solid var(--hazard);background:#f2c2301a;max-width:34em;font-size:16px}
-.alpha-note b{color:var(--hazard);font-weight:600}
-.dl .fine{margin-top:14px;font-size:14px;color:var(--ash)}
-.card{background:var(--panel);border:1px solid var(--line);padding:22px 24px}
-.card + .card{margin-top:14px}
-.card h3{font-size:26px;margin-bottom:10px}
-.card ol,.card ul{margin:0;padding-left:20px;color:var(--ash);font-size:16px}
-.card li + li{margin-top:6px}
-.card b{color:var(--bone);font-weight:600}
-.ver{display:inline-block;font:400 18px/1 var(--display);letter-spacing:.08em;color:#191500;background:var(--hazard);padding:5px 10px 3px;margin-bottom:14px}
-#notes{color:var(--ash);font-size:16px}
-@media (max-width:860px){.dl-grid{grid-template-columns:1fr}}
-
-footer{padding:48px 0 60px;color:var(--ash);font-size:14px}
-footer .row{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;margin-bottom:22px}
-footer img{width:56px;height:56px;border-radius:8px}
-footer .credits{max-width:70em;line-height:1.55}
-footer a{color:var(--bone)}
-
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.clip video{transition:none}}
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
 <header class="nav" id="nav">
   <a class="logo" href="#top" aria-label="UNBURIED home"><img src="media/logo.png" alt="UNBURIED" width="1400" height="520"></a>
-  <a class="alpha" href="#alpha" title="This is an early alpha build">Alpha</a>
-  <a class="link" href="#clips">Clips</a>
-  <a class="link" href="#features">Features</a>
-  <a class="link" href="#match">How it plays</a>
-  <a class="link" href="feedback.html">Feedback</a>
-  <a class="btn small" href="#download">Download free</a>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#top" class="on">Play</a>
+    <a href="#lives">Two lives</a>
+    <a href="#features">Features</a>
+    <a href="#screens">Screens</a>
+    <a href="feedback.html">Feedback</a>
+  </nav>
+  <a class="tag-alpha" href="#alpha" title="This is an early alpha build">Alpha <span data-ver>v1.0.28</span></a>
+  <a class="btn small" href="#download">Download</a>
 </header>
 
 <main id="top">
 <div class="hero">
   <video id="heroVideo" src="media/drop.mp4" poster="media/drop.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
+  <span class="brackets" aria-hidden="true"></span>
   <div class="wrap hero-in">
-    <h1><img src="media/logo.png" alt="UNBURIED. Drop. Survive. Be the last." width="1400" height="520"></h1>
-    <p class="eyebrow"><span class="alpha" style="display:inline-block;margin-right:12px;letter-spacing:.14em">Alpha</span>Zombie battle royale · Free on PC</p>
-    <p class="lede">Jump from the plane, loot the ruins, and be the last human standing. Get bitten and you claw back out of the ground as one of them.</p>
-    <div class="cta">
-      <a class="btn" href="#download">Download free</a>
-      <a class="btn ghost" href="#clips">Watch clips</a>
+    <div class="hero-panel">
+      <h1><img src="media/logo.png" alt="UNBURIED. Drop. Survive. Be the last." width="1400" height="520"></h1>
+      <p class="label">Zombie battle royale <span class="sep"></span> Free on PC <span class="sep"></span> <span class="c-alpha">Early alpha</span></p>
+      <p class="lede">Jump from the plane, loot the ruins, and be the last human standing. Get bitten and you claw back out of the ground as one of them.</p>
+      <div class="cta">
+        <a class="btn" href="#download"><span class="tri" aria-hidden="true"></span>Download free</a>
+        <a class="btn alt" href="#lives">How it plays</a>
+      </div>
+      <p class="keys"><kbd>Win</kbd> 10 / 11 <kbd>KB+M</kbd> or controller <kbd>~0.75 GB</kbd> <span data-ver>v1.0.28</span></p>
     </div>
-    <p class="meta">Early alpha build: expect bugs and missing features · Windows 10 / 11 · <span data-ver>v1.0.22</span> · about 0.75 GB · keyboard &amp; mouse or controller</p>
   </div>
 </div>
 
-<section id="clips">
+<div class="stats-band">
+  <div class="wrap stats">
+    <div class="stat"><span class="label">Players</span><b>40</b><small>per match</small></div>
+    <div class="stat"><span class="label">Map</span><b>2×2</b><small>km of Deadvale</small></div>
+    <div class="stat"><span class="label">Zone</span><b class="c-zone">5</b><small>closing circles</small></div>
+    <div class="stat"><span class="label">Price</span><b class="c-survivor">Free</b><small>no account needed</small></div>
+  </div>
+</div>
+
+<section id="lives">
   <div class="wrap">
     <div class="head">
-      <h2>See it <span>in action</span></h2>
-      <p>Straight out of the current build. Hover to preview, click to watch.</p>
+      <h2>Two lives, one match</h2>
+      <p>Every match you play as a survivor. Go down and you don't leave: you come back as one of them, with a way home.</p>
     </div>
-    <div class="clips">
-      <button class="clip big" data-src="media/drop.mp4" data-title="The drop">
-        <video src="media/drop.mp4" poster="media/drop.jpg" muted loop playsinline preload="none"></video>
-        <span class="play"></span>
-        <span class="cap"><h3>The drop</h3><p>Out of the cargo ramp, skydive, pull the chute.</p></span>
-      </button>
-      <button class="clip big" data-src="media/fight.mp4" data-title="Hold the line">
-        <video src="media/fight.mp4" poster="media/fight.jpg" muted loop playsinline preload="none"></video>
-        <span class="play"></span>
-        <span class="cap"><h3>Hold the line</h3><p>An AKM, one magazine, and too many of them.</p></span>
-      </button>
-      <button class="clip" data-src="media/turn.mp4" data-title="You were bitten">
-        <video src="media/turn.mp4" poster="media/turn.jpg" muted loop playsinline preload="none"></video>
-        <span class="play"></span>
-        <span class="cap"><h3>You were bitten</h3><p>Dying isn't the end. You rise and hunt.</p></span>
-      </button>
-      <button class="clip" data-src="media/loot.mp4" data-title="Loot the ruins">
-        <video src="media/loot.mp4" poster="media/loot.jpg" muted loop playsinline preload="none"></video>
-        <span class="play"></span>
-        <span class="cap"><h3>Loot the ruins</h3><p>Walk-in buildings, chests, gear on the floor.</p></span>
-      </button>
-      <button class="clip" data-src="media/vault.mp4" data-title="Keep moving">
-        <video src="media/vault.mp4" poster="media/vault.jpg" muted loop playsinline preload="none"></video>
-        <span class="play"></span>
-        <span class="cap"><h3>Keep moving</h3><p>Vault walls, climb ledges, roll out of trouble.</p></span>
-      </button>
-      <button class="clip big" data-src="media/melee.mp4" data-title="Up close">
-        <video src="media/melee.mp4" poster="media/melee.jpg" muted loop playsinline preload="none"></video>
-        <span class="play"></span>
-        <span class="cap"><h3>Up close</h3><p>Fists, baseball bat, machete, for when the ammo's gone.</p></span>
-      </button>
-      <a class="clip big" href="#download" style="display:grid;place-items:center;text-decoration:none;background:var(--panel);aspect-ratio:auto;min-height:180px">
-        <span style="text-align:center;padding:24px"><h3 style="font-size:40px;margin-bottom:14px">Your turn</h3><span class="btn yellow">Download free</span></span>
-      </a>
+    <div class="lives">
+      <article class="life">
+        <div class="vitals">
+          <div class="vrow"><span class="label">Vitals</span><span class="label c-survivor">Survivor</span></div>
+          <div class="vmid"><b>100</b><svg class="pulse" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 20H40l5-3 4 3h6l4-14 5 28 4-18 4 4h40l5-3 4 3h6l4-14 5 28 4-18 4 4H200"/></svg></div>
+          <div class="vrow"><span class="label">Armour</span><span class="plates" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+        </div>
+        <h3>Survive</h3>
+        <p>Land, loot and keep breathing. Two gun slots, a melee weapon, heals and grenades. Stay inside the zone and be the last human standing.</p>
+        <ul class="ctrl">
+          <li><kbd>LMB</kbd>Shoot</li><li><kbd>RMB</kbd>Aim</li><li><kbd>Q</kbd>Heal</li>
+          <li><kbd>G</kbd>Grenade</li><li><kbd>Ctrl</kbd>Roll</li><li><kbd>Tab</kbd>Inventory</li>
+        </ul>
+      </article>
+      <div class="arrow" aria-hidden="true"><span class="label">Bitten</span><span class="line"></span><span class="label c-cure">Cured</span></div>
+      <article class="life turned">
+        <div class="vitals">
+          <div class="vrow"><span class="label">Vitals</span><span class="label c-turned">Turned</span></div>
+          <div class="vmid"><b>225</b><svg class="pulse" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 20H30l3-4 2 6 3-2H70l2-6 3 9 2-4H112l3-3 2 5 2-2H150l2-7 3 10 2-4H200"/></svg></div>
+          <div class="vrow"><span class="label">Get-ups left</span><span class="plates" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div>
+        </div>
+        <h3>Hunt</h3>
+        <p>Claw out of the ground tougher and faster, guns locked. Find a <span class="c-cure">cure</span> in a cache or supply drop, or bring down survivors to earn your way back to human.</p>
+        <ul class="ctrl">
+          <li><kbd>LMB</kbd>Claw</li><li><kbd>RMB</kbd>Pounce</li><li><kbd>Shift</kbd>Run</li>
+          <li><kbd>Z</kbd>Crawl</li><li><kbd>C</kbd>Use cure</li><li><kbd>M</kbd>Map</li>
+        </ul>
+      </article>
     </div>
   </div>
 </section>
@@ -230,73 +98,102 @@ footer a{color:var(--bone)}
 <section id="features" class="band">
   <div class="wrap">
     <div class="head">
-      <h2>What's <span>in the game</span></h2>
+      <h2>What's in the game</h2>
       <p>Everything here is in the alpha you download today. It is unfinished, and more is on the way.</p>
     </div>
     <div class="feats">
-      <div class="feat"><h3>Last human standing</h3><p>Up to 40 survivors per match. Bring friends or let bots fill the plane. The zone closes in five circles until one human, or one squad, is left.</p></div>
-      <div class="feat"><h3>Death turns you</h3><p>Die and you get back up as a zombie: faster, tougher, able to pounce. Find a cure or take down survivors to become human again.</p></div>
-      <div class="feat"><h3>The dead keep rising</h3><p>Zombies claw out of graveyards and out of the ground near you all match long. Shamblers, runners and worse.</p></div>
-      <div class="feat"><h3>Deadvale</h3><p>A 2 × 2 km overgrown valley: forest, swamp, highlands, a river and lakes you can swim, and ruined buildings you can walk into and loot.</p></div>
-      <div class="feat"><h3>Five guns, two slots</h3><p>MP5, Makarov, double-barrel, AKM and a scoped SV-98, each with its own ammo, recoil and reload. Plus bat, machete and fists.</p></div>
-      <div class="feat"><h3>Loot that matters</h3><p>Bandages, first aid kits, energy drinks, body armour, backpacks, frag grenades, petrol bombs, and supply drops worth fighting over.</p></div>
-      <div class="feat"><h3>Move like you mean it</h3><p>Sprint, crouch, dodge roll, vault walls, climb ledges, swim and dive. Barrels and propane tanks explode, and fire spreads.</p></div>
-      <div class="feat"><h3>Play together</h3><p>Host a party and invite friends, pick squads or free-for-all, or find a game on a server. Lobby chat, ready-up, teammate markers.</p></div>
-      <div class="feat"><h3>Free, and it updates itself</h3><p>No store, no battle pass, no currency. XP, levels and daily challenges track your career, and the game updates from the lobby.</p></div>
+      <div class="feat"><span class="label">Survivor</span><h3>Last human standing</h3><p>Up to 40 survivors per match. Bring friends or let bots fill the plane. The zone closes in five circles until one human, or one squad, is left.</p></div>
+      <div class="feat t-turned"><span class="label">Turned</span><h3>Death turns you</h3><p>Die and you get back up as a zombie: faster, tougher, able to pounce. Find a cure or take down survivors to become human again.</p></div>
+      <div class="feat t-turned"><span class="label">Horde</span><h3>The dead keep rising</h3><p>Zombies claw out of graveyards and out of the ground near you all match long. Shamblers, runners and worse.</p></div>
+      <div class="feat t-zone"><span class="label">Map</span><h3>Deadvale</h3><p>A 2 × 2 km overgrown valley: forest, swamp, highlands, a river and lakes you can swim, and ruined buildings you can walk into and loot.</p></div>
+      <div class="feat"><span class="label">Arsenal</span><h3>Five guns, two slots</h3><p>MP5, Makarov, double-barrel, AKM and a scoped SV-98, each with its own ammo, recoil and reload. Plus bat, machete and fists.</p></div>
+      <div class="feat t-armour"><span class="label">Loot</span><h3>Loot that matters</h3><p>Bandages, first aid kits, energy drinks, body armour, backpacks, frag grenades, petrol bombs, and supply drops worth fighting over.</p></div>
+      <div class="feat"><span class="label">Movement</span><h3>Move like you mean it</h3><p>Sprint, crouch, dodge roll, vault walls, climb ledges, swim and dive. Barrels and propane tanks explode, and fire spreads.</p></div>
+      <div class="feat t-cure"><span class="label">Party</span><h3>Play together</h3><p>Host a party and invite friends, pick squads or free-for-all, or find a game on a server. Lobby chat, ready-up, teammate markers.</p></div>
+      <div class="feat t-alpha"><span class="label">Season 1</span><h3>Rust &amp; Ruin</h3><p>A free 30-tier battle pass with outfits, armour, parachutes and emotes, plus daily challenges. Nothing to buy with real money, and the game updates itself.</p></div>
     </div>
   </div>
 </section>
 
-<section id="match">
+<section id="hud">
+  <div class="wrap hud-grid">
+    <div class="hud-copy">
+      <span class="label">Vital signs</span>
+      <h2>Read the fight at a glance</h2>
+      <p class="sub">The HUD gives every colour one job, so you can tell what's happening without reading a word.</p>
+      <ul class="legend">
+        <li><i class="dot c-survivor-bg"></i><b>You, alive.</b> Your pulse in orange.</li>
+        <li><i class="dot c-turned-bg"></i><b>Turned.</b> The trace twitches acid green.</li>
+        <li><i class="dot c-cure-bg"></i><b>The Cure.</b> Cyan, your way back.</li>
+        <li><i class="dot c-zone-bg"></i><b>The zone.</b> Purple, and it's closing.</li>
+        <li><i class="dot c-armour-bg"></i><b>Armour.</b> Blue plates under your vitals.</li>
+      </ul>
+      <svg class="trace" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 30H170l10-6 8 6h14l8-26 10 50 9-34 7 10h120l10-6 8 6h14l8-26 10 50 9-34 7 10H600"/></svg>
+    </div>
+    <div class="hud-shots">
+      <button class="shot" data-src="media/shot-hud.jpg" data-title="Outside the zone"><img src="media/shot-hud.jpg" alt="In-match HUD: alive and turned counts, compass, minimap, zone timer, vitals with heartbeat trace, weapon and ammo panels" loading="lazy" width="1600" height="900"><span class="cap">Survivor HUD, outside the zone</span></button>
+      <button class="shot" data-src="media/shot-turned.jpg" data-title="Clawing out of the ground"><img src="media/shot-turned.jpg" alt="Turned HUD in acid green: claws, get-ups left, cure panel" loading="lazy" width="1600" height="900"><span class="cap c-turned">Turned: clawing out of the ground</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="match" class="band">
   <div class="wrap">
     <div class="head">
-      <h2>How a match <span>goes</span></h2>
+      <h2>How a match goes</h2>
     </div>
     <ol class="flow">
-      <li><h3>Ready up</h3><p>Gather your party in the lobby. When everyone's ready, the plane leaves.</p></li>
-      <li><h3>Drop</h3><p>Pick your spot on the map, jump from the ramp, steer the skydive and open your chute.</p></li>
-      <li><h3>Loot &amp; survive</h3><p>Search chests, gear up, and stay inside the zone while the dead rise around you.</p></li>
-      <li><h3>Win, or turn</h3><p>Be the last human alive. If you fall, hunt the living and earn your way back.</p></li>
+      <li><span class="num">1</span><h3>Ready up</h3><p>Gather your party in the lobby. When everyone's ready, the plane leaves.</p></li>
+      <li><span class="num">2</span><h3>Drop</h3><p>Pick your spot on the map, jump from the ramp, steer the skydive and open your chute.</p></li>
+      <li><span class="num">3</span><h3>Loot &amp; survive</h3><p>Search chests, gear up, and stay inside the zone while the dead rise around you.</p></li>
+      <li><span class="num">4</span><h3>Win, or turn</h3><p>Be the last human alive. If you fall, hunt the living and earn your way back.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="band">
+<section id="screens">
   <div class="wrap">
-    <div class="head"><h2>Screens</h2></div>
+    <div class="head">
+      <h2>Screens</h2>
+      <p>The new look, captured from the current build. Click any screen to see it full size.</p>
+    </div>
     <div class="shots">
-      <figure><img src="media/shot-lobby.jpg" alt="The UNBURIED lobby with party list, game mode and daily challenges" loading="lazy" width="1280" height="720"><figcaption>Lobby: party, game mode, daily challenges</figcaption></figure>
-      <figure><img src="media/shot-full-map.jpg" alt="Full map of Deadvale with a grid, river, roads and lakes" loading="lazy" width="1280" height="720"><figcaption>The full map of Deadvale</figcaption></figure>
-      <figure><img src="media/shot-inventory.jpg" alt="Inventory screen with bandage, energy drink, grenade, first aid kit and body armour" loading="lazy" width="1280" height="720"><figcaption>Inventory and equipped gear</figcaption></figure>
-      <figure><img src="media/shot-winner.jpg" alt="Winner screen showing rank, kills and time" loading="lazy" width="1280" height="720"><figcaption>The screen you're playing for</figcaption></figure>
+      <button class="shot wide" data-src="media/shot-lobby.jpg" data-title="Lobby"><img src="media/shot-lobby.jpg" alt="The lobby: party list, game mode, daily challenges, your record, READY and FIND A MATCH buttons" loading="lazy" width="1600" height="900"><span class="cap">Lobby: party, game mode, daily challenges</span></button>
+      <button class="shot" data-src="media/shot-inventory.jpg" data-title="Inventory"><img src="media/shot-inventory.jpg" alt="Inventory wheel with weapons on the left, the first aid kit selected in the centre, and actions on the right" loading="lazy" width="1600" height="900"><span class="cap">Inventory wheel</span></button>
+      <button class="shot" data-src="media/shot-battlepass.jpg" data-title="Battle Pass"><img src="media/shot-battlepass.jpg" alt="Season 1 Rust and Ruin battle pass with free and premium reward tracks" loading="lazy" width="1600" height="900"><span class="cap">Season 1: Rust &amp; Ruin</span></button>
+      <button class="shot" data-src="media/shot-plane.jpg" data-title="The plane"><img src="media/shot-plane.jpg" alt="Cargo plane flying over Deadvale with the prompt PRESS SPACE TO JUMP" loading="lazy" width="1600" height="900"><span class="cap">Press space to jump</span></button>
+      <button class="shot" data-src="media/shot-parachute.jpg" data-title="Under canopy"><img src="media/shot-parachute.jpg" alt="Player under an open parachute, steering toward the zone" loading="lazy" width="1600" height="900"><span class="cap">Under canopy</span></button>
+      <button class="shot wide" data-src="media/shot-winner.jpg" data-title="Winner"><img src="media/shot-winner.jpg" alt="WINNER screen: rank 1 of 19, kills, time and XP earned" loading="lazy" width="1600" height="900"><span class="cap c-survivor">The screen you're playing for</span></button>
     </div>
   </div>
 </section>
 
-<section id="download" class="dl">
+<section id="download" class="dl band">
   <div class="wrap dl-grid">
     <div>
-      <h2>Download the alpha.<br><span>It's free.</span></h2>
+      <span class="label">Free · Windows</span>
+      <h2>Download the alpha.<br><span class="c-survivor">It's free.</span></h2>
       <p class="sub">Grab the launcher. It installs the game, keeps it up to date and starts it. No account needed: you can play offline as a guest.</p>
       <div class="opts">
-        <a class="btn" id="dlLauncher" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest/download/UNBURIED-Launcher.exe">Download launcher</a>
-        <a class="btn ghost" id="dlZip" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest">Zip, no launcher</a>
+        <a class="btn" id="dlLauncher" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest/download/UNBURIED-Launcher.exe"><span class="tri" aria-hidden="true"></span>Download launcher</a>
+        <a class="btn alt" id="dlZip" href="https://github.com/montypyphon-lang/UNBURIED-releases/releases/latest">Zip, no launcher</a>
       </div>
       <p class="alpha-note" id="alpha"><b>This is an alpha.</b> The game is playable but unfinished: expect bugs, rough edges and things that change between updates. If something breaks, <a href="feedback.html">tell me</a>.</p>
       <p class="fine">Windows 10 / 11, 64-bit · launcher under 1 MB, game <span id="dlSize">about 0.75 GB</span> · <a href="https://github.com/montypyphon-lang/UNBURIED-releases/releases">All versions</a></p>
     </div>
     <div>
       <div class="card">
-        <span class="ver">Latest alpha: <span data-ver>v1.0.22</span><span id="verDate"></span></span>
-        <p id="notes">New weapon switch animation, and the guns you carry now show on your back and in your holster.</p>
+        <div class="card-head"><span class="label">Latest alpha</span><span class="tag-alpha"><span data-ver>v1.0.28</span></span></div>
+        <p class="date" id="verDate"></p>
+        <p id="notes">New look: lobby, death and WINNER screens, inventory and battle pass to match the Vital Signs HUD.</p>
       </div>
       <div class="card">
-        <h3>Installing</h3>
-        <ol>
-          <li>Run <b>UNBURIED-Launcher.exe</b> and press <b>INSTALL</b>. It downloads the game for you.</li>
+        <div class="card-head"><span class="label">Installing</span></div>
+        <ol class="steps">
+          <li>Run <b>UNBURIED-Launcher.exe</b> and press <kbd>Install</kbd>. It downloads the game for you.</li>
           <li>If Windows shows "Windows protected your PC", choose <b>More info → Run anyway</b>. The launcher isn't code-signed yet.</li>
           <li>If Windows blocks it outright (Smart App Control), use the <b>zip</b>: unzip it anywhere and run the game from the folder.</li>
-          <li>Press <b>PLAY</b>. The launcher fetches updates when there are any.</li>
+          <li>Press <kbd>Play</kbd>. The launcher fetches updates when there are any.</li>
         </ol>
       </div>
     </div>
@@ -308,46 +205,41 @@ footer a{color:var(--bone)}
   <div class="wrap">
     <div class="row">
       <img src="media/studio.png" alt="MagicMonty Studios" width="56" height="56">
-      <span>UNBURIED is made by <b style="color:var(--bone)">MagicMonty Studios</b>. Built in Unreal Engine 5. Found a bug or got an idea? <a href="feedback.html">Send feedback</a>.</span>
+      <span>UNBURIED is made by <b>MagicMonty Studios</b>. Built in Unreal Engine 5. Found a bug or got an idea? <a href="feedback.html">Send feedback</a>.</span>
     </div>
     <p class="credits">Third-party art used under CC BY 4.0 or CC0, with thanks: fakeblenderman (MP5, grenade), Scape (Makarov), Ryan Nein (double barrel), Ag72 (AKM), SpatialNeglect (SV-98), Daniel Riches (ammo), Tony Flanagan (Zombie Number 8), Arberry (Survival Character), Woody's Games (parachute), LOLIPOP (birch trees), Helindu.Art (apartment ruins), jourverse (abandoned house), OlegVerenko (rusty cars), Barnus Model's (IFAK), artisticdude (zombie sounds), Quaternius (animations), Poly Haven (ground textures), Quixel Megascans (plants). Full credits are in the game's How To Play panel.</p>
   </div>
 </footer>
 
-<dialog id="box" aria-label="Clip player">
-  <div class="bar"><strong id="boxTitle"></strong><button type="button" id="boxClose">Close</button></div>
-  <video id="boxVideo" controls playsinline loop></video>
+<dialog id="box" aria-label="Viewer">
+  <div class="bar"><strong id="boxTitle"></strong><button type="button" id="boxClose"><kbd>Esc</kbd> Close</button></div>
+  <img id="boxImg" alt="">
 </dialog>
 
 <script>
-// nav background once you leave the hero
+// nav background once you leave the hero, and the tab for the section in view
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 80), {passive:true});
+const tabs = [...document.querySelectorAll('.tabs a[href^="#"]')];
+const spy = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) tabs.forEach(t => t.classList.toggle('on', t.getAttribute('href') === e.target.dataset.tab));
+}), {rootMargin: '-45% 0px -50% 0px'});
+[['.hero', '#top'], ['#lives', '#lives'], ['#features', '#features'], ['#hud', '#features'], ['#match', '#features'], ['#screens', '#screens'], ['#download', '#top']]
+  .forEach(([sel, tab]) => { const el = document.querySelector(sel); el.dataset.tab = tab; spy.observe(el); });
 
 // hero video: no autoplay for people who asked for less motion
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (calm) { const h = document.getElementById('heroVideo'); h.removeAttribute('autoplay'); h.pause(); }
 
-// clip cards: hover preview, click for the full player
-const box = document.getElementById('box'), boxVideo = document.getElementById('boxVideo');
-document.querySelectorAll('button.clip').forEach(card => {
-  const v = card.querySelector('video');
-  if (!calm) {
-    card.addEventListener('pointerenter', () => v.play().catch(() => {}));
-    card.addEventListener('pointerleave', () => v.pause());
-  }
-  card.addEventListener('click', () => {
-    v.pause();
-    document.getElementById('boxTitle').textContent = card.dataset.title;
-    boxVideo.src = card.dataset.src;
-    box.showModal();
-    boxVideo.play().catch(() => {});
-  });
-});
-function closeBox(){ boxVideo.pause(); boxVideo.removeAttribute('src'); boxVideo.load(); if (box.open) box.close(); }
-document.getElementById('boxClose').addEventListener('click', closeBox);
-box.addEventListener('click', e => { if (e.target === box) closeBox(); });
-box.addEventListener('close', () => boxVideo.pause());
+// viewer: screens show full size
+const box = document.getElementById('box'), boxImg = document.getElementById('boxImg');
+document.querySelectorAll('button.shot').forEach(s => s.addEventListener('click', () => {
+  document.getElementById('boxTitle').textContent = s.dataset.title;
+  boxImg.src = s.dataset.src; boxImg.alt = s.dataset.title;
+  box.showModal();
+}));
+document.getElementById('boxClose').addEventListener('click', () => box.close());
+box.addEventListener('click', e => { if (e.target === box) box.close(); });
 
 // latest release: version, notes and direct links (the page works without it)
 fetch('https://api.github.com/repos/montypyphon-lang/UNBURIED-releases/releases/latest')
@@ -355,7 +247,7 @@ fetch('https://api.github.com/repos/montypyphon-lang/UNBURIED-releases/releases/
   .then(rel => {
     document.querySelectorAll('[data-ver]').forEach(e => e.textContent = rel.tag_name);
     if (rel.published_at) document.getElementById('verDate').textContent =
-      ' · ' + new Date(rel.published_at).toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric'});
+      'Released ' + new Date(rel.published_at).toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric'});
     if (rel.body) document.getElementById('notes').textContent = rel.body;
     const launcher = rel.assets.find(a => /launcher\.exe$/i.test(a.name));
     const zip = rel.assets.find(a => /\.zip$/i.test(a.name));
